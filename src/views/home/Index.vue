@@ -122,7 +122,6 @@ export default {
               this.options.shopname = res.data.shop_name;
               this.options.shopdetail = res.data.shop_detail;
               this.options.picshop = res.data.picshop;
-
           })
           .catch(err => {
 

@@ -94,7 +94,6 @@ export default {
       ownerName: "",
       shopName: "",
       detailshop:"",
-      picshop:"@/assets/imgshop/shop-cartoon-png-2.png",
       email: ""
      }
    }
@@ -103,7 +102,7 @@ export default {
 
    onSubmit1() {
      axios
-      .post("https://ezpayapp.azurewebsites.net/api/registershop",this.form)
+      .post("https://ezpayapplication.herokuapp.com/register",this.form)
       .then( function (result) {
         this.DirectLogin()
       })

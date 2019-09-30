@@ -53,9 +53,7 @@ export default {
                     }else{
                         this.DirectIndexUser();
                     }
-                    
                     this.alertify.success('Success message');
-                  
                 })
                 .catch(err => {
                     this.onReset();
