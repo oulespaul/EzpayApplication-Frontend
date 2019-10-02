@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import routes from './router.js'
 
 //StyleSheet
 import 'bootstrap/dist/css/bootstrap.css'
@@ -39,6 +39,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
 new Vue({
-    router,
     render: h => h(App),
+    router:routes,
 }).$mount('#app')

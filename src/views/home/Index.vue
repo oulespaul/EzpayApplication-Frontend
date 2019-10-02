@@ -116,11 +116,12 @@ export default {
   methods: {
     
     search() {
-          const id = localStorage.getItem('shopid');
-          axios.get('https://ezpayapp.azurewebsites.net/api/getdetailshop/' + id)
+          const id = localStorage.getItem('shopid')
+          axios.get('/api/shop'+ id)
           .then(res => {
-              this.options.shopname = res.data.shop_name;
-              this.options.shopdetail = res.data.shop_detail;
+              console.log(res.data)
+              this.options.shopname = res.data.shopName;
+              this.options.shopdetail = res.data.detailShop;
               this.options.picshop = res.data.picshop;
           })
           .catch(err => {

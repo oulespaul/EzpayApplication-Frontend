@@ -18,9 +18,9 @@
                                     </div>
                                     <div class="divider-custom-line"></div>
                                 </div>
-                                ชื่อร้านค้า       <br> <input type="text" name="shopname" v-model="form.shop_name"><br><br>
-                                ชื่อเจ้าของร้านค้า  <br> <input type="text" name="ownername" v-model="form.ownerName"><br><br>
-                                รายละเอียดร้านค้า <br> <input type="text" name="detailshop" style="height:200px" v-model="form.shop_detail"><br><br>
+                                ชื่อร้านค้า       <br> <input type="text" name="shopName" v-model="form.shopName"><br><br>
+                                ชื่อเจ้าของร้านค้า  <br> <input type="text" name="ownerName" v-model="form.ownerName"><br><br>
+                                รายละเอียดร้านค้า <br> <input type="text" name="detailShop" style="height:200px" v-model="form.detailShop"><br><br>
                                 <!-- <input type="file" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload">เลือกรูปภาพหน้าร้านค้า</label> -->
 
                                 <br><br>
@@ -54,8 +54,8 @@ export default {
   data(){
       return {
         form : {
-            shop_name : '',
-            shop_detail:'',
+            shopName : '',
+            detailShop:'',
             ownerName:'',
         },
         file: ''
@@ -67,10 +67,10 @@ export default {
 methods: {
   getprofile() {
       const id = localStorage.getItem('shopid');
-      axios.get('https://ezpayapp.azurewebsites.net/api/getdetailshop/' + id)
+      axios.get('/api/shop' + id)
       .then(res => {
-          this.form.shop_name = res.data.shop_name;
-          this.form.shop_detail = res.data.shop_detail;
+          this.form.shopName = res.data.shopName;
+          this.form.detailShop = res.data.detailShop;
           this.form.ownerName = res.data.ownerName;
           // this.form.picshop = res.data.picshop;
       })
@@ -78,35 +78,34 @@ methods: {
 
       })
     },
-  submitFile(){
-    let formData = new FormData();
-    formData.append('file', this.file);
-    axios.post( 'https://ezpayapp.azurewebsites.net/api/uploadfile', formData,
-                {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }
-    ).then(function(){
-      console.log('SUCCESS!!');
-    })
-    .catch(function(){
-      console.log('FAILURE!!');
-    });
-  },
+  // submitFile(){
+  //   let formData = new FormData();
+  //   formData.append('file', this.file);
+  //   axios.post( 'https://ezpayapp.azurewebsites.net/api/uploadfile', formData,
+  //               {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data'
+  //       }
+  //     }
+  //   ).then(function(){
+  //     console.log('SUCCESS!!');
+  //   })
+  //   .catch(function(){
+  //     console.log('FAILURE!!');
+  //   });
+  // },
   onReset() {
       this.form = {
-            shopname :"",
-            shopdetail:"",
+            shopName :"",
+            detailShop:"",
             ownerName:"",
             email:"",
       }
   },
   seteditdata(){
         const id = localStorage.getItem('shopid');
-        axios.put('https://ezpayapp.azurewebsites.net/api/updateprofile/'+ id,this.form)
+        axios.put('/api/shop'+ id,this.form)
         .then(res => {
-
             this.alertify.success('Success message');
             this.$router.push({ name : "index"});
         })
