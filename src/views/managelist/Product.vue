@@ -37,13 +37,15 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="(option,index) in options.id_product" :key="index">
-                                                        <td>{{option.name_product}}</td>
-                                                        <td>{{option.price_product}}&nbsp;บาท</td>
-                                                        <td>{{option.status_name}}</td>
-                                                        <td>{{option.slot_product}}</td>
-                                                        <td><button><i class="fas fa-pencil-alt" v-on:click="editproduct(option.id_product);"></i></button>&nbsp;
-                                                        <button><i class="fas fa-trash-alt" v-on:click="keepproduct(option.id_product,3);"></i></button></td>
+                                                    <tr v-for="(option,index) in options.id_product" :key="index" v-show="option.statusId !== null">
+                                                        <td>{{option.productName}}</td>
+                                                        <td>{{option.productPrice}}&nbsp;บาท</td>
+                                                        <td v-if="option.statusId == 1">Available</td>
+                                                        <td v-if="option.statusId == 2">Empty</td>
+                                                        <td v-if="option.statusId == 3">Waiting</td>
+                                                        <td>{{option.productSlot}}</td>
+                                                        <td><button><i class="fas fa-pencil-alt" v-on:click="editproduct(option.productId);"></i></button>&nbsp;
+                                                        <button><i class="fas fa-trash-alt" v-on:click="keepproduct(option.productId);"></i></button></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -95,7 +97,7 @@ export default {
     },
     getproduct() {
         const id = localStorage.getItem('shopid')
-        axios.get('https://ezpayapp.azurewebsites.net/api/getshopproduct/' + id)
+        axios.get('/api/product/' + id)
         .then(res => {
             this.options.id_product = res.data;
         })
@@ -106,10 +108,12 @@ export default {
         localStorage.setItem('product_id',id_product);
         this.$router.push({ name : "productedit"});
     },
-    keepproduct(id_product,status_id){
-        axios.put('https://ezpayapp.azurewebsites.net/api/putproduct/' + id_product +","+ status_id)
+    keepproduct(id_product){
+        let data = {
+            statusId:''
+        }
+        axios.put('/api/product/' + id_product,data)
         .then(res => {
-
             this.alertify.success('Success message');
         })
         setTimeout(() => this.isHidden = false, 500);

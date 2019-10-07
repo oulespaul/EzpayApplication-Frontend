@@ -20,10 +20,10 @@
                                 </div>
 
                                 <form @submit.prevent = "AddProduct()">
-                                    ชื่อสินค้า       <br> <input type="text" name="productname" v-model="form.name_product"><br><br>
-                                    ราคาสินค้า     <br> <input type="text" name="productprice" v-model="form.price_product"><br><br>
+                                    ชื่อสินค้า       <br> <input type="text" name="productname" v-model="form.productName"><br><br>
+                                    ราคาสินค้า     <br> <input type="text" name="productprice" v-model="form.productPrice"><br><br>
                                     ช่องที่ขายสินค้า 
-                                    <select v-model="form.slot_product">
+                                    <select v-model="form.productSlot">
                                         <option value=NULL>ว่าง</option>
                                         <option v-for="index in 20" :key="index">
                                             <option value=index>{{index}}</option>
@@ -31,10 +31,10 @@
                                     </select>
                                     |
                                     สถานะสินค้า 
-                                <select v-model="form.status_id" name="status_id">
+                                <select v-model="form.statusId" name="statusId">
                                     <option value="">Please select one</option>
-                                    <option v-bind:value="option.status_id" v-for="(option,id_status) in options.id_status" :key="id_status">
-                                        {{option.status_name}}
+                                    <option v-bind:value="option.statusId" v-for="(option,id_status) in options.id_status" :key="id_status">
+                                        {{option.statusName}}
                                     </option>
                                 </select>
                                     
@@ -75,41 +75,50 @@ export default {
             id_status : []
         },
         form: {
-            name_product: '',
-            price_product: '',
-            slot_product: '',
-            status_product: '',
-            status_id:''
+            productName: '',
+            productPrice: '',
+            productSlot: '',
+            statusId:'',
+            shopId:'',
+            createBy:'',
+            updateBy:''
         }
     }
     },
   created() {
-      this.getdata()
+      this.getStatus()
       
   },
     methods: {
     AddProduct() {
       const shop_id = localStorage.getItem('shopid')
-      axios.post("https://ezpayapp.azurewebsites.net/api/productadd/" + shop_id,this.form)
+      this.form.shopId = shop_id
+      this.form.createBy = shop_id
+      this.form.updateBy = shop_id
+      
+      axios.post("/api/product",this.form)
       .then( function (result) {
+          this.alertify.success('Success message');
+          this.$router.push({ name : "product"});
+      }).catch((err)=>{
+          this.alertify.success('Error message');          
       })
-        this.$router.push({ name : "product"});
     },
     DirectProduct() {
         this.$router.push({ name : "product"});
     },
-    getdata() {
-        axios.get('https://ezpayapp.azurewebsites.net/api/getmasterdata')
+    getStatus() {
+        axios.get('/api/status')
         .then(res => {
              this.options.id_status = res.data;
         })
     },
     onReset() {
         this.form = {
-            name_product: "",
-            price_product: "",
-            slot_product: "",
-            status_product: ""
+            productName: "",
+            productPrice: "",
+            productSlot: "",
+            statusId:""
         }
     }
   }
