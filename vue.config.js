@@ -6,7 +6,7 @@ module.exports = {
         proxy: {
           // proxy all requests starting with /api to jsonplaceholder
           '/api': {
-            target: 'https://ezpayapplication.herokuapp.com/api',
+            target: 'https://ezpayapplication.herokuapp.com/api/',
             changeOrigin: true,
             pathRewrite: {
               '^/api': ''
