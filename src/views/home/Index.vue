@@ -117,7 +117,7 @@ export default {
     
     search() {
           const id = localStorage.getItem('shopid')
-          axios.get('/api/shop'+ id)
+          axios.get('https://ezpayapplication.herokuapp.com/api/shop'+ id)
           .then(res => {
               this.options.shopname = res.data.shopName;
               this.options.shopdetail = res.data.detailShop;

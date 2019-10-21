@@ -96,7 +96,7 @@ export default {
       this.form.createBy = shop_id
       this.form.updateBy = shop_id
       
-      axios.post("/api/product",this.form)
+      axios.post("https://ezpayapplication.herokuapp.com/api/product",this.form)
       .then( function (result) {
           this.alertify.success('Success message');
           this.$router.push({ name : "product"});
@@ -108,7 +108,7 @@ export default {
         this.$router.push({ name : "product"});
     },
     getStatus() {
-        axios.get('/api/status')
+        axios.get('https://ezpayapplication.herokuapp.com/api/status')
         .then(res => {
              this.options.id_status = res.data;
         })

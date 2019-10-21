@@ -67,7 +67,7 @@ export default {
 methods: {
   getprofile() {
       const id = localStorage.getItem('shopid');
-      axios.get('/api/shop' + id)
+      axios.get('https://ezpayapplication.herokuapp.com/api/shop' + id)
       .then(res => {
           this.form.shopName = res.data.shopName;
           this.form.detailShop = res.data.detailShop;
@@ -104,7 +104,7 @@ methods: {
   },
   seteditdata(){
         const id = localStorage.getItem('shopid');
-        axios.put('/api/shop'+ id,this.form)
+        axios.put('https://ezpayapplication.herokuapp.com/api/shop'+ id,this.form)
         .then(res => {
             this.alertify.success('Success message');
             this.$router.push({ name : "index"});

@@ -44,7 +44,7 @@ export default {
  },
     methods: {
         onLogin() {
-            axios.post('/api/login',this.form)
+            axios.post('https://ezpayapplication.herokuapp.com/api/login',this.form)
                 .then(res => {
                     localStorage.setItem('shopid',res.data.info.shopId);
                     if(res.data.info.shopId === "admin")

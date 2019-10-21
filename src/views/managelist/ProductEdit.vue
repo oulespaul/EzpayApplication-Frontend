@@ -90,14 +90,14 @@ export default {
         this.$router.push({ name : "product"});
     },
     getStatus() {
-        axios.get('/api/status')
+        axios.get('https://ezpayapplication.herokuapp.com/api/status')
         .then(res => {
              this.options = res.data
         })
     },
     geteditdata(){
         const productid = localStorage.getItem('product_id')
-        axios.get('/api/productByPid/'+ productid)
+        axios.get('https://ezpayapplication.herokuapp.com/api/productByPid/'+ productid)
         .then(res => {
             this.form.productName = res.data.productName;
             this.form.productPrice = res.data.productPrice;
@@ -116,7 +116,7 @@ export default {
     seteditdata(){
         const productid = localStorage.getItem('product_id')
         this.form.statusId = this.form.statusId === "Available" ? 1 : this.form.statusId === "Empty" ? 2 : this.form.statusId === "Waiting" ? 3 : null;
-        axios.put('/api/product/'+ productid,this.form)
+        axios.put('https://ezpayapplication.herokuapp.com/api/product/'+ productid,this.form)
         .then(res => {
             this.alertify.success('Success message');
             localStorage.removeItem('product_id');

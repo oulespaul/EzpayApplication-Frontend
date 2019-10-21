@@ -96,7 +96,7 @@ export default {
     },
     gethistoryall() {
       const id = localStorage.getItem("shopid");
-      axios.get("/api/getListBuying/" + id).then(res => {
+      axios.get("https://ezpayapplication.herokuapp.com/api/getListBuying/" + id).then(res => {
         let current_datetime = new Date(res.data.created);
 
         this.options.id_bill = res.data;

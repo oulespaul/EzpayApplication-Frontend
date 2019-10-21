@@ -97,7 +97,7 @@ export default {
     },
     getproduct() {
         const id = localStorage.getItem('shopid')
-        axios.get('/api/product/' + id)
+        axios.get('https://ezpayapplication.herokuapp.com/api/product/' + id)
         .then(res => {
             this.options.id_product = res.data;
         })
@@ -112,7 +112,7 @@ export default {
         let data = {
             statusId:''
         }
-        axios.put('/api/product/' + id_product,data)
+        axios.put('https://ezpayapplication.herokuapp.com/api/product/' + id_product,data)
         .then(res => {
             this.alertify.success('Success message');
         })

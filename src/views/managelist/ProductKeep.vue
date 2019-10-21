@@ -103,7 +103,7 @@ export default {
     },
     getproductkeep() {
         const id = localStorage.getItem('shopid')
-        axios.get('/api/product/' + id)
+        axios.get('https://ezpayapplication.herokuapp.com/api/product/' + id)
         .then(res => {
             var keeProduct =  res.data.filter(function(d) {
 	            return d.statusId === null;
@@ -118,7 +118,7 @@ export default {
         let data = {
             statusId: 1
         }
-        axios.put('/api/product/' + product_id , data)
+        axios.put('https://ezpayapplication.herokuapp.com/api/product/' + product_id , data)
         .then(res => {
 
             this.alertify.success('Success message');

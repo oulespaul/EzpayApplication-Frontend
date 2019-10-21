@@ -88,7 +88,7 @@ export default {
   methods: {
     onSubmit1() {
       axios
-        .post("/api/register", this.form)
+        .post("https://ezpayapplication.herokuapp.com/api/register", this.form)
         .then(function(result) {
           router.push("login");
         });
